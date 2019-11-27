@@ -1,0 +1,23 @@
+<li value="{acc-id}">
+    <div class="collapsible-header blue-grey darken-2 waves-effect waves-green hoverable"
+         style="border: 1px solid #37474f">
+        <div class="left-align" style="width: 100%">
+            <i class="material-icons blue-grey-text text-lighten-4">monetization_on</i>
+            <span class="blue-grey-text text-lighten-4">ID: {id-text}  -  {type-text}</span>
+            <h5 class="right-align">$ {balance-text}</h5>
+        </div>
+    </div>
+    <div class="collapsible-body left-align" style="border: 1px solid #263238">
+        <div>
+            <div>
+                {description-text}
+            </div>
+            <div>
+                <button class="btn waves-effect waves-light light-green darken-2 right-align"
+                        style="width: 100%" onclick="focus_transactions({id-text})">
+                    View Transactions
+                </button>
+            </div>
+        </div>
+    </div>
+</li>

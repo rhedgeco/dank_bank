@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dank Bank</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link href="../data/css/material-icons.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../data/css/materialize.css" media="screen,projection">
+    <link type="text/css" rel="stylesheet" href="user-pages/css/custom-styles.css" media="screen,projection">
+    <script src="../data/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../data/js/materialize.js"></script>
+    <script src="../data/js/input-mask/cleave.min.js"></script>
+    <script src="../data/js/redirect-never-here.js"></script>
+</head>
+<body class="blue-grey darken-4">
+<nav class="nav-extended navbar-fixed">
+    <div class="nav-wrapper light-green darken-4">
+        <a href="../index.html" class="brand-logo center">Dank Bank</a>
+        <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="../atm/atm-login.html">Go to ATM</a></li>
+            <li><a onclick="document.cookie = 'authToken=0;domain=;path=/'; window.location.href = '../index.html'">
+                Sign Out
+            </a></li>
+        </ul>
+    </div>
+    <div class="nav-content light-green darken-3">
+        <ul id="nav-tabs" class="tabs tabs-transparent tabs-fixed-width">
+            <li id="tab-accounts" class="tab"><a href="#accounts-page">Accounts</a></li>
+            <li id="tab-transfer" class="tab"><a href="#transfer-page">Transfer</a></li>
+            <li id="tab-deposit" class="tab"><a href="#deposit-page">Deposit Checks</a></li>
+            <li id="tab-settings" class="tab"><a href="#settings-page">User Settings</a></li>
+        </ul>
+    </div>
+</nav>
+<ul class="sidenav blue-grey darken-3" id="mobile-nav">
+    <li><a href="../atm/atm-login.html" class="white-text">Go to ATM</a></li>
+    <li><a href="#" onclick="document.cookie = 'authToken=0;domain=;path=/'; window.location.href = '../index.html'">
+        Sign Out
+    </a></li>
+</ul>
+
+<div class="row">
+    <!--Main User Display Window -->
+    <div class="col m4 l3 hide-on-small-and-down">
+        <div class="card blue-grey darken-3 hoverable">
+            <div class="card-content white-text">
+                <span class="card-title">User Info</span>
+                <h6 class="valign-wrapper blue-grey darken-2">
+                    <pre>  </pre>
+                    <i class="material-icons prefix" style="color: #cfd8dc">account_circle</i>
+                    <pre> </pre>
+                    <p id="profile-username" class="truncate">loading...</p>
+                </h6>
+                <h6 class="valign-wrapper blue-grey darken-2">
+                    <pre>  </pre>
+                    <i class="material-icons prefix" style="color: #cfd8dc">person</i>
+                    <pre> </pre>
+                    <p id="profile-name" class="truncate">loading...</p>
+                </h6>
+                <h6 class="valign-wrapper blue-grey darken-2">
+                    <pre>  </pre>
+                    <i class="material-icons prefix" style="color: #cfd8dc">mail</i>
+                    <pre> </pre>
+                    <p id="profile-email" class="truncate">loading...</p>
+                </h6>
+                <h6 class="valign-wrapper blue-grey darken-2">
+                    <pre>  </pre>
+                    <i class="material-icons prefix" style="color: #cfd8dc">phone</i>
+                    <pre> </pre>
+                    <p id="profile-phone" class="truncate">loading...</p>
+                </h6>
+                <h6 class="valign-wrapper blue-grey darken-2">
+                    <pre>  </pre>
+                    <i class="material-icons prefix" style="color: #cfd8dc">home</i>
+                    <pre> </pre>
+                    <p id="profile-address" class="truncate">loading...</p>
+                </h6>
+            </div>
+        </div>
+    </div>
+    <div class="col s12 m8 l9">
+        <!--Accounts Page -->
+        <div id="accounts-page" class="col s12">
+            <div class="row">
+                <div class="col s12 l8">
+                    <div class="card blue-grey darken-3">
+                        <div class="card-content white-text center-align">
+                            <span class="card-title">Accounts</span>
+                            <br>
+                            <div class="divider"></div>
+                            <br>
+                            <ul class="collapsible blue-grey darken-3" id="account-content" style="border: 0px">
+                            </ul>
+                            <button class="btn waves-effect waves-light light-green darken-2"
+                                    style="width: 100%" onclick="focus_transactions(0)">
+                                View All Account Transactions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 l4">
+                    <div class="card blue-grey darken-3">
+                        <div class="card-content white-text center-align">
+                            <span class="card-title">Open New Account</span>
+                            <br>
+                            <form>
+                                <label>
+                                    <input name="account-type" type="radio" class="with-gap" value="CHECKING" checked/>
+                                    <span class="blue-grey-text text-lighten-4">CHECKING</span>
+                                </label>
+                                <label>
+                                    <input name="account-type" type="radio" class="with-gap" value="SAVINGS"/>
+                                    <span class="blue-grey-text text-lighten-4">SAVINGS</span>
+                                </label>
+                                <br>
+                                <br>
+                                <button class="btn waves-effect waves-light light-green darken-2"
+                                        style="width: 100%" onclick="create_account(); return false;">
+                                    <i class="material-icons right">add</i>
+                                    Create Account
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 l8">
+                    <div class="card blue-grey darken-3">
+                        <div class="card-content white-text center-align">
+                            <span class="card-title">Account Transactions<span id="trans-id-sec"></span></span>
+                            <br>
+                            <div class="divider"></div>
+                            <br id="trans-focus">
+                            <ul class="collection blue-grey darken-3" id="trans-section" style="border: 0px">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Transfer Page -->
+        <div id="transfer-page" class="col s12">
+            <div class="row">
+                <div class="col s12 l8">
+                    <div class="card blue-grey darken-3">
+                        <div class="card-content white-text center-align">
+                            <span class="card-title">Transfer Funds</span>
+                            <br>
+                            <div class="divider"></div>
+                            <br>
+                            <div class="row">
+                                <form onsubmit="execute_transfer(); return false;">
+                                    <div class="col s6 offset-s3 left-align">
+                                        <label>
+                                            <input id="external-transfer" type="checkbox" class="light-green"
+                                                   onclick="external_click()"/>
+                                            <span class="white-text">External Transfer</span>
+                                        </label>
+                                        <script>
+                                            function external_click() {
+                                                let check = document.getElementById('external-transfer');
+                                                let toSelect = document.getElementById('to-select');
+                                                let externalToSelect = document.getElementById('external-to-select');
+                                                if (check.checked) {
+                                                    toSelect.style.display = 'none';
+                                                    externalToSelect.style.display = 'block';
+                                                    externalToSelect.setAttribute('required', 'required');
+                                                } else {
+                                                    toSelect.style.display = 'block';
+                                                    externalToSelect.style.display = 'none';
+                                                    externalToSelect.setAttribute('required', 'null');
+                                                }
+                                            }
+                                        </script>
+                                    </div>
+                                    <div class="input-field col s12 l6 offset-l3">
+                                        <button class="btn-large waves-effect waves-green blue-grey darken-2 grey-text text-lighten-2 dropdown-trigger"
+                                                data-target="transfer-from-selector"
+                                                style="border: 1px solid #9e9e9e; width: 100%"
+                                                id="transfer-from-button" value="0">
+                                            <i class="material-icons right">arrow_drop_down</i>
+                                            <span id="transfer-from-display">No Accounts for Transfer.</span>
+                                        </button>
+                                        <ul id='transfer-from-selector' class='dropdown-content'>
+                                            <li value="${id}" class="blue-grey darken-2"><a class="white-text">${account}</a>
+                                            </li>
+                                            <li value="${id}" class="blue-grey darken-2"><a class="white-text">${account}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div id="to-select" class="input-field col s12 l6 offset-l3">
+                                        <button class="btn-large waves-effect waves-green blue-grey darken-2 grey-text text-lighten-2 dropdown-trigger"
+                                                data-target="transfer-to-selector"
+                                                style="border: 1px solid #9e9e9e; width: 100%"
+                                                id="transfer-to-button" value="0">
+                                            <i class="material-icons right">arrow_drop_down</i>
+                                            <span id="transfer-to-display">No Accounts for Transfer.</span>
+                                        </button>
+                                        <ul id='transfer-to-selector' class='dropdown-content'>
+                                            <li value="${id}" class="blue-grey darken-2"><a class="white-text">${account}</a>
+                                            </li>
+                                            <li value="${id}" class="blue-grey darken-2"><a class="white-text">${account}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div id="external-to-select" class="input-field col s12 l6 offset-l3" style="display: none">
+                                        <input id="external-to" type="number" class="validate white-text" required="null">
+                                        <label for="external-to">External Account ID</label>
+                                    </div>
+                                    <div class="input-field col s12 l6 offset-l3">
+                                        <input id="amount-transfer" type="text" class="white-text transfer-amount"
+                                               required>
+                                        <label for="amount-transfer">Amount</label>
+                                    </div>
+                                    <div class="col s12">
+                                        <button type="submit" class="btn waves-effect waves-light light-green darken-2">
+                                            <i class="material-icons right">send</i>Execute Transfer
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 l4">
+                    <div class="card blue-grey darken-3">
+                        <div class="card-content white-text center-align">
+                            <span class="card-title">Info</span>
+                            <p class="blue-grey-text text-lighten-4 left-align">
+                                1. Select Account to transfer from.<br>
+                                2. Select Account to transfer to.<br>
+                                3. Enter amount to transfer.<br>
+                                4. Submit transfer request.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Deposits Page -->
+        <div id="deposit-page" class="col s12">
+            <div class="row">
+                <div class="col s12 l8">
+                    <div class="card blue-grey darken-3">
+                        <div class="card-content white-text center-align">
+                            <span class="card-title">Mobile Deposit</span>
+                            <br>
+                            <div class="divider"></div>
+                            <br>
+                            <form onsubmit="upload_check(); return false;">
+                                <div class="row">
+                                    <div class="col s12 l6 offset-l3">
+                                        <div class="file-field input-field">
+                                            <div class="btn light-green darken-2">
+                                                <span><i class="material-icons right">image</i>Upload Image</span>
+                                                <input id="image-file" type="file" required>
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate white-text" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br><br>
+                                    <div class="input-field col s12 l6 offset-l3">
+                                        <button class="btn-large waves-effect waves-green blue-grey darken-2 grey-text text-lighten-2 dropdown-trigger"
+                                                data-target="check-account-selector"
+                                                style="border: 1px solid #9e9e9e; width: 100%"
+                                                id="check-account-button" value="0">
+                                            <i class="material-icons right">arrow_drop_down</i>
+                                            <span id="check-account-display">No Accounts for Deposit.</span>
+                                        </button>
+                                        <ul id='check-account-selector' class='dropdown-content'>
+                                            <li value="1"><a>one</a></li>
+                                            <li value="2"><a>two</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="input-field col s12 l6 offset-l3">
+                                        <input id="check-amount" type="text" class="white-text validate check-amount"
+                                               required>
+                                        <label for="check-amount">Check Amount</label>
+                                    </div>
+                                    <div class="col s12">
+                                        <br>
+                                        <button type="submit" class="btn waves-effect waves-light light-green darken-2">
+                                            <i class="material-icons right">cloud_upload</i>Submit Check
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 l4">
+                    <div class="card blue-grey darken-3">
+                        <div class="card-content white-text center-align">
+                            <span class="card-title">Info</span>
+                            <p class="blue-grey-text text-lighten-4 left-align">
+                                1. Upload a picture of the check.<br>
+                                2. Select account to deposit check.<br>
+                                3. Enter the amount listed on the check.<br>
+                                4. Submit check for processing.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 l8">
+                    <div class="card blue-grey darken-3">
+                        <div class="card-content white-text center-align">
+                            <span class="card-title">Past Deposits</span>
+                            <div id="past-deposits" class="blue-grey-text text-lighten-4">
+                                <p>TODO: Implement past deposits</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--User Settings Page -->
+        <div id="settings-page" class="col s12">
+            <div class="row">
+                <div class="col s12 l8">
+                    <div class="card blue-grey darken-3">
+                        <div class="card-content white-text center-align">
+                            <span class="card-title">User Settings</span>
+                            <br>
+                            <div class="divider"></div>
+                            <br>
+                            <form onsubmit="modify_user();return false;">
+                                <div class="row">
+                                    <div class="input-field col s12 m6">
+                                        <i class="material-icons prefix" style="color: #cfd8dc">person</i>
+                                        <input id="first_name" type="text"
+                                               class="validate blue-grey-text text-lighten-3">
+                                        <label for="first_name">New First Name</label>
+                                        <span class="helper-text" data-error="field cannot be blank"
+                                              data-success=""> </span>
+                                    </div>
+                                    <div class="input-field col s12 m6">
+                                        <i class="material-icons prefix hide" style="color: #cfd8dc">person</i>
+                                        <input id="last_name" type="text"
+                                               class="validate blue-grey-text text-lighten-3">
+                                        <label for="last_name">New Last Name</label>
+                                        <span class="helper-text" data-error="field cannot be blank"
+                                              data-success=""> </span>
+                                    </div>
+                                    <div class="input-field col s12 m12">
+                                        <i class="material-icons prefix" style="color: #cfd8dc">account_circle</i>
+                                        <input id="username" type="text" class="validate blue-grey-text text-lighten-3">
+                                        <label for="username">New Username</label>
+                                        <span class="helper-text" data-error="field cannot be blank"
+                                              data-success=""> </span>
+                                    </div>
+                                    <div class="input-field col s12 m8">
+                                        <i id="passLock" class="material-icons prefix"
+                                           style="color: #cfd8dc">lock_open</i>
+                                        <input id="password" type="password"
+                                               class="validate blue-grey-text text-lighten-3">
+                                        <label for="password">New Password</label>
+                                        <span class="helper-text" data-error="field cannot be blank"
+                                              data-success=""> </span>
+                                    </div>
+                                    <div class="input-field col s12 m4">
+                                        <i id="pinLock" class="material-icons prefix"
+                                           style="color: #cfd8dc">lock_open</i>
+                                        <input id="pin" type="password"
+                                               class="validate blue-grey-text text-lighten-3 pin-input"
+                                               minlength="4" maxlength="4">
+                                        <label for="pin">New Pin</label>
+                                        <span id="pinTip" class="helper-text" data-error="pin must be 4 digits"
+                                              data-success=""> </span>
+                                    </div>
+                                    <div class="input-field col s12 m8">
+                                        <i id="passConfLock" class="material-icons prefix" style="color: #cfd8dc">lock_open</i>
+                                        <input id="passConf" type="password"
+                                               class="validate blue-grey-text text-lighten-3">
+                                        <label for="passConf">Confirm New Password</label>
+                                        <span id="passConfTip" class="helper-text" data-error="field cannot be blank"
+                                              data-success=""> </span>
+                                    </div>
+                                    <div class="input-field col s12 m4">
+                                        <i id="pinConfLock" class="material-icons prefix" style="color: #cfd8dc">lock_open</i>
+                                        <input id="pinConf" type="password"
+                                               class="validate blue-grey-text text-lighten-3 pin-input"
+                                               minlength="4" maxlength="4">
+                                        <label for="pinConf">Confirm New Pin</label>
+                                        <span id="pinConfTip" class="helper-text" data-error="pin must be 4 digits"
+                                              data-success=""> </span>
+                                    </div>
+                                    <div class="input-field col s12 m12">
+                                        <i class="material-icons prefix" style="color: #cfd8dc">mail</i>
+                                        <input id="email" type="email" class="validate blue-grey-text text-lighten-3">
+                                        <label for="email">New Email</label>
+                                        <span class="helper-text" data-error="invalid email" data-success=""> </span>
+                                    </div>
+                                    <div class="input-field col s12 m12">
+                                        <i class="material-icons prefix" style="color: #cfd8dc">phone</i>
+                                        <input id="phone" type="text"
+                                               class="validate blue-grey-text text-lighten-3 phone-input">
+                                        <label for="phone">New Phone Number</label>
+                                        <span class="helper-text" data-success=""> </span>
+                                    </div>
+                                    <div class="input-field col s12 m12">
+                                        <i class="material-icons prefix" style="color: #cfd8dc">home</i>
+                                        <input id="address" type="text" class="validate blue-grey-text text-lighten-3">
+                                        <label for="address">New Address</label>
+                                        <span class="helper-text" data-success=""> </span>
+                                    </div>
+                                    <div class="col s12 m12">
+                                        <button type="submit" class="btn waves-effect waves-light light-green darken-2">
+                                            Modify User
+                                        </button>
+                                        <p id="error_text" class="red-text"></p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col s12 l4">
+                    <div class="card blue-grey darken-3">
+                        <div class="card-content white-text center-align">
+                            <span class="card-title">Info</span>
+                            <p class="blue-grey-text text-lighten-4">
+                                All fields are optional.<br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="page-footer blue-grey darken-3">
+    <div class="container">
+        <div class="row">
+            <div class="col l6 s12">
+                <h5 class="blue-grey-text text-lighten-3">Dank Bank USA</h5>
+                <p class="blue-grey-text text-lighten-3"></p>
+            </div>
+            <div class="col l4 offset-l2 s12">
+                <h5 class="blue-grey-text text-lighten-3">Links</h5>
+                <ul>
+                    <li><a class="blue-grey-text text-lighten-2" href="../atm/atm-login.html">Dank ATM</a></li>
+                    <li><a class="blue-grey-text text-lighten-2" href="signup.html">Create an Account</a></li>
+                    <li><a class="blue-grey-text text-lighten-2" href="#!">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright darken-4">
+        <div class="container">
+            © 2019 SJSU CMPE 131 Software Engineering
+        </div>
+    </div>
+</footer>
+
+<script type="text/javascript" src="../data/js/materialize-init.js"></script>
+<script src="../data/js/user-profile.js"></script>
+<script src="user-pages/js/accounts_loader.js"></script>
+<script src="user-pages/js/check_uploader.js"></script>
+<script src="user-pages/js/transfer_handler.js"></script>
+<script src="user-pages/js/modify_user.js"></script>
+</body>
+</html>

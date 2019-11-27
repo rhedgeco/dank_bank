@@ -1,0 +1,9 @@
+.idea/
+backend/sqlite/
+__pycache__
+backend/__pycache__
+backend/account_handlers/__pycache__
+backend/check_images
+dank_bank.egg-info
+dist
+.pytest_cache

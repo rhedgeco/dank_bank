@@ -1,0 +1,141 @@
+This is the simple documentation for using the backend webserver api.
+
+Any request to the webserver will be going through http://localhost:6009/api/
+That is where the server should be routing everything through.
+
+Here is a breakdown of a url to an api call
+
+1. the domain e.g. "http://localhost:6009/api/"
+2. the path e.g. "user_profiles"
+3. the parameters e.g. "?username=coolguy42&password=coolpass24"
+    - the format of parameters starts with a '?' and then the parameter 'username=coolguy42' all seperated by '&'
+
+FINAL EXAMPLE : "http://localhost:6009/api/user_profiles?username=coolguy42&password=coolpass24"
+
+When calling from code, there are 3 request types our api uses
+GET - will get a resource
+POST - will create a resource
+PUT - will change a resource
+
+------------------------------------------------------------------------------------------------------------------------
+                                - API LOCATIONS under http://localhost:6009/api/-
+------------------------------------------------------------------------------------------------------------------------
+---FORMAT---
+- path location
+    - request type : what does it do
+        - parameters
+            - parameter : description
+            - parameter : description
+        - response codes
+            - response code : reason
+            - response code : reason
+    - request type
+        - parameters
+            - parameter : description
+            - parameter : description
+        - response codes
+            - response code : reason
+            - response code : reason
+------------------------------------------------------------------------------------------------------------------------
+
+!!NOTICE!! ALL PATHS MAY GIVE A RESPONSE CODE 400 IF IT DOESNT GET THE RIGHT PARAMETERS!
+
+
+- auth
+    - GET : gives back an authentication token that is used for making later requests
+        - parameters (either the password or the pin parameter must be used to authenticate)
+            - username : login username
+            - password : login password (optional, but must choose password or pin)
+            - pin : login pin (optional, but must choose password or pin)
+        - response codes
+            - 200 : successfully authenticated user
+            - 400 : username and password were not accepted
+
+- user_profiles
+    - GET : gives back all the information (other than the password) for a user in a dictionary
+        - parameters
+            - authToken : token generated when logging in with 'auth'
+        - response codes
+            - 200 : success
+            - 401 : authToken was not accepted
+    - POST : creates a new user profile
+        - parameters
+            - first_name
+            - last_name
+            - username : new user username
+            - password : new user password
+            - email : users email
+            - phone_number : users phone number
+            - address : users address
+            - pin : pin code
+        - response codes
+            - 200 : successfully created user
+            - 403 : user already exists
+    - PUT : Changes the username or password for a user associated with authToken
+        - parameters
+            - first_name : (optional)
+            - last_name : (optional)
+            - authToken : token generated when logging in with 'auth'
+            - username : (optional) new username
+            - password : (optional) new password
+            - email : (optional) new email
+            - phone_number : (optional) new phone_number
+            - address : (optional) new address
+            - pin : (optional) new pin
+        - response codes
+            - 200 : successfully changed user
+            - 401 : authToken was not accepted
+
+- accounts
+    - GET : returns a list of account dictionaries associated with authToken
+        - parameters
+            - authToken : token generated when logging in with 'auth'
+        - response codes
+            - 200 : successfully found all accounts
+            - 401 : authToken was not accepted
+    - POST : creates a new account associated with authToken
+        - parameters
+            - authToken : token generated when logging in with 'auth'
+            - type : what kind of account is being created CHECKING or SAVINGS
+        - response codes
+            - 200 : successfully created new account
+            - 401 : authToken was not accepted
+
+- transfers
+    - GET : gets all transfers associated with a user or account
+        - parameters
+            - authToken : token generated when logging in with 'auth'
+            - account_id : account to get transactions for (use 0 for all accounts)
+        - response codes
+            - 200 : successfully accessed transactions
+            - 401 : unauthorized
+    - POST : transfers money between accounts
+        - parameters
+            - authToken : token generated when logging in with 'auth'
+            - from_account_id : account to pull money from (must be associated with authToken)
+            - to_account_id : account to send money to (can be any account with the bank)
+            - amount : how much money to transfer (cannot be more than from_account balance)
+        - response codes
+            - 200 : successfully transferred the money
+            - 401 : transfer failed
+
+- checks
+    - POST : deposits a check into an account
+        - parameters
+            - authToken : token generated when logging in with 'auth'
+            - account_id : account to deposit into (must be associated with authToken)
+            - image_path : relative file path the check image was uploaded to
+            - check_amount : amount of money on the check
+        - response codes
+            - 200 : successfully deposited the check
+            - 401 : failed to deposit the check
+
+- withdraw
+    - POST : withdraws an amount of money
+        - parameters
+            - authToken : token generated when logging in with 'auth'
+            - account_id : account to pull money from
+            - amount : amount of money to take out
+        - response codes
+            - 200 : successfully withdraw
+            - 401 : failed to withdraw

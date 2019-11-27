@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dank Bank ATM Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../data/css/materialize.css" media="screen,projection"/>
+    <script src="../data/js/input-mask/cleave.min.js"></script>
+</head>
+<body class="blue-grey darken-4">
+
+<div class="row">
+    <div class="col s12 m4 offset-m4">
+        <div class="card blue-grey darken-3 hoverable">
+            <div class="card-content blue-grey-text text-lighten-4 center-align row">
+                <img src="../data/images/atm-icon.png" style="height: 150px">
+                <div class="row">
+                    <div class="col s12 m6 offset-m3">
+                        <div class="input-field">
+                            <input id="username" type="text"
+                                   class="validate center-align blue-grey-text text-lighten-2" required>
+                            <label for="username">Username</label>
+                        </div>
+                        <div class="input-field">
+                            <input id="pin" type="password"
+                                   class="validate center-align blue-grey-text text-lighten-3 pin-input"
+                                   minlength="4" maxlength="4" required>
+                            <label for="pin">Pin</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-action center-align">
+                <button id="submit" class="btn waves-effect waves-light light-green darken-2">Submit
+                    <i class="material-icons right">check</i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../data/js/materialize.js"></script>
+<script src="../data/js/materialize-init.js"></script>
+<script src="../data/js/masking.js"></script>
+</body>
+</html>
