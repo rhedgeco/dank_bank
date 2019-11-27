@@ -151,7 +151,7 @@
                             <br>
                             <div class="row">
                                 <form onsubmit="execute_transfer(); return false;">
-                                    <div class="col s6 offset-s3 left-align">
+                                    <div class="col m12 l6 offset-l3 left-align">
                                         <label>
                                             <input id="external-transfer" type="checkbox" class="light-green"
                                                    onclick="external_click()"/>
@@ -162,14 +162,15 @@
                                                 let check = document.getElementById('external-transfer');
                                                 let toSelect = document.getElementById('to-select');
                                                 let externalToSelect = document.getElementById('external-to-select');
+                                                let externalTo = document.getElementById('external-to');
                                                 if (check.checked) {
                                                     toSelect.style.display = 'none';
                                                     externalToSelect.style.display = 'block';
-                                                    externalToSelect.setAttribute('required', 'required');
+                                                    externalTo.required = true;
                                                 } else {
                                                     toSelect.style.display = 'block';
                                                     externalToSelect.style.display = 'none';
-                                                    externalToSelect.setAttribute('required', 'null');
+                                                    externalTo.required = false;
                                                 }
                                             }
                                         </script>
@@ -205,7 +206,7 @@
                                         </ul>
                                     </div>
                                     <div id="external-to-select" class="input-field col s12 l6 offset-l3" style="display: none">
-                                        <input id="external-to" type="number" class="validate white-text" required="null">
+                                        <input id="external-to" type="number" class="validate white-text">
                                         <label for="external-to">External Account ID</label>
                                     </div>
                                     <div class="input-field col s12 l6 offset-l3">

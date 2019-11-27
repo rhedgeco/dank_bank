@@ -9,14 +9,14 @@ request.onload = function () {
         let navSideItems = document.getElementById('nav-side-items');
 
         let so =
-            `<li><a onclick="document.cookie = 'authToken=0;domain=;path=/'; window.location.href = 'home.html'">
+            `<li><a onclick="document.cookie = 'authToken=0;domain=;path=/'; window.location.href = 'index.html'">
                 Sign Out
             </a></li>`;
         let li =
             `<li><a href="user/user-profile.html"><i class="material-icons left">account_circle</i>${user}</a></li>`;
 
         let sow =
-            `<li><a class="white-text" onclick="document.cookie = 'authToken=0;domain=;path=/'; window.location.href = 'home.html'">
+            `<li><a class="white-text" onclick="document.cookie = 'authToken=0;domain=;path=/'; window.location.href = 'index.html'">
                 Sign Out
             </a></li>`;
         let liw =
