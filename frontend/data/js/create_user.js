@@ -62,7 +62,7 @@ pinConf.onkeyup = function () {
 };
 
 pinConf.onblur = function () {
-    validate_pin_conf()
+    validate_pin_conf();
     check_pin_match()
 };
 
