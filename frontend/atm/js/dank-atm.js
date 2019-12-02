@@ -1,12 +1,27 @@
 apiUrl = "http://localhost:6009/api/";
 accountContent = document.getElementById('account-content');
 accountTypes = document.getElementsByName('account-type');
-checkAccountSelector = document.getElementById('check-account-selector');
-transferFromSelector = document.getElementById('transfer-from-selector');
-transfertoSelector = document.getElementById('transfer-to-selector');
-transSection = document.getElementById('trans-section');
+withdrawAccountSelector = document.getElementById('withdraw-account-selector');
+withdrawButton = document.getElementById('withdraw-button');
+withdrawDisplay = document.getElementById('withdraw-display');
 
 load_accounts();
+
+function onWithdraw() {
+    let id = document.getElementById('withdraw-button').getAttribute('value');
+    let amount = document.getElementById('withdraw-amount').value;
+
+    let wd = new XMLHttpRequest();
+    wd.open("POST", apiUrl + 'withdraw?authToken='+getCookie('authToken')+'&account_id='+id+'&amount='+amount);
+    wd.onload = function () {
+        if(this.status === 200){
+            window.location.href = "dank-atm.html";
+        } else {
+            M.toast({html : 'Failed to withdraw money.\n'+this.responseText})
+        }
+    };
+    wd.send();
+}
 
 function load_accounts() {
     let accountRequest = new XMLHttpRequest();
@@ -14,6 +29,8 @@ function load_accounts() {
     accountRequest.onload = function () {
         if (this.status === 200) {
             accountContent.innerHTML = "";
+            withdrawAccountSelector.innerHTML = "";
+            withdrawDisplay.innerHTML = "";
             let accounts = JSON.parse(this.response);
             for (let key in accounts) {
                 if (accounts.hasOwnProperty(key)) {
@@ -61,6 +78,16 @@ function add_new_account_block(id, type, amount) {
         block = block.replace('{description-text}', desc);
         accountContent.innerHTML += block;
     });
+
+    let account = ' ID:' + id + ' - ' + type + ' - $' + amount;
+    let accountDrop = `<li value="${id}" class="blue-grey darken-2"><a class="white-text">${account}</a></li>`;
+    withdrawAccountSelector.innerHTML += accountDrop;
+    $("#withdraw-account-selector li").click(function () {
+        withdrawButton.value = $(this).attr('value');
+        withdrawDisplay.innerText = $(this).text();
+    });
+    withdrawButton.value = id;
+    withdrawDisplay.innerText = account;
 }
 
 function getCookie(cname) {
