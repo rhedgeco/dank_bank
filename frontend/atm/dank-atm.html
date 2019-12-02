@@ -7,6 +7,7 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../data/css/materialize.css" media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/custom-styles.css" media="screen,projection">
     <script src="../data/js/jquery-3.4.1.min.js"></script>
     <script src="../data/js/input-mask/cleave.min.js"></script>
 </head>
@@ -19,7 +20,19 @@
                 <span class="card-title">Dank ATM</span>
                 <ul class="collapsible blue-grey darken-3" id="account-content" style="border: 0px">
                 </ul>
-
+                <button class="btn-large waves-effect waves-green blue-grey darken-2 grey-text text-lighten-2 dropdown-trigger"
+                        data-target="withdraw-account-selector"
+                        style="border: 1px solid #9e9e9e; width: 100%"
+                        id="transfer-from-button" value="0">
+                    <i class="material-icons right">arrow_drop_down</i>
+                    <span id="transfer-from-display">No Accounts for Transfer.</span>
+                </button>
+                <ul id='withdraw-account-selector' class='dropdown-content'>
+                    <li value="${id}" class="blue-grey darken-2"><a class="white-text">${account}</a>
+                    </li>
+                    <li value="${id}" class="blue-grey darken-2"><a class="white-text">${account}</a>
+                    </li>
+                </ul>
                 <div class="input-field col s6 offset-s3">
                     <input id="withdraw-amount" type="number" class="validate">
                     <label for="withdraw-amount">Withdraw Amount</label>
