@@ -7,7 +7,10 @@ from backend.authenticator import Authenticator
 from backend.account_handlers.user_profiles import UserProfiles
 from backend.account_handlers.checks import Checks
 from backend.account_handlers.transfer import Transfers
+from backend.static_server import IndexServer
 from falcon_multipart.middleware import MultipartMiddleware
+
+from backend.paths import STATIC_DIR
 
 from wsgiref import simple_server
 
@@ -16,6 +19,11 @@ public_cors = falcon_cors.CORS(allow_all_origins=True,
                                allow_all_methods=True)
 
 api = application = falcon.API(middleware=[public_cors.middleware, MultipartMiddleware()])
+
+api.add_static_route(prefix="/", directory=str(STATIC_DIR))
+
+index = IndexServer()
+api.add_route('/', index)
 
 authenticator = Authenticator()
 api.add_route('/api/auth', authenticator)

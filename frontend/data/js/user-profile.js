@@ -1,4 +1,4 @@
-apiUrl = "api.dankbank.us/api/";
+apiUrl = "dankbank.us/api/";
 navTabs = document.getElementById('nav-tabs');
 profileName = document.getElementById('profile-name');
 profileUsername = document.getElementById('profile-username');

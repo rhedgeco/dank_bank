@@ -1,4 +1,4 @@
-apiUrl = "api.dankbank.us/api/";
+apiUrl = "dankbank.us/api/";
 auth = getCookie("authToken");
 let request = new XMLHttpRequest();
 request.open("GET", apiUrl + "user_profiles?authToken=" + auth);

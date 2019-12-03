@@ -1,4 +1,4 @@
-apiUrl = "api.dankbank.us/api/";
+apiUrl = "dankbank.us/api/";
 accountContent = document.getElementById('account-content');
 accountTypes = document.getElementsByName('account-type');
 withdrawAccountSelector = document.getElementById('withdraw-account-selector');

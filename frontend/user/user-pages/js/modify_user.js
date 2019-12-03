@@ -1,4 +1,4 @@
-apiUrl = "api.dankbank.us/api/";
+apiUrl = "dankbank.us/api/";
 
 pass = document.getElementById("password");
 passConf = document.getElementById("passConf");

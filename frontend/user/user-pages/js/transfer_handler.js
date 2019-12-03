@@ -1,4 +1,4 @@
-apiUrl = 'api.dankbank.us/api/';
+apiUrl = 'dankbank.us/api/';
 transAmtCleave = new Cleave('.transfer-amount', {numeral: true});
 
 function execute_transfer() {

@@ -9,6 +9,7 @@ setup(
         "falcon-multipart",
         "PyJWT",
         "pytest",
-        "msgpack"
+        "msgpack",
+        "jinja2"
     ]
 )
