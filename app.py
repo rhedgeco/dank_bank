@@ -44,7 +44,7 @@ if __name__ == "__main__":
     print('only run this file directly for local hosting')
     server = simple_server.make_server(
         host="0.0.0.0",
-        port=6009,
+        port=80,
         app=create()
     )
 
