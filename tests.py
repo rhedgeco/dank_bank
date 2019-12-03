@@ -11,7 +11,7 @@ assert not sqlite_db.exists()
 print('database removed.')
 
 # imports app afterwards because app will create database again
-import app
+from app import application
 from backend.database_manager import apply_check
 
 global user1
@@ -40,7 +40,7 @@ user2 = {
 
 @pytest.fixture()
 def client():
-    return testing.TestClient(app.create())
+    return testing.TestClient(application)
 
 
 def test_create_users(client):
