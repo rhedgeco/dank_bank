@@ -1,4 +1,4 @@
-apiUrl = "http://localhost:6009/api/";
+apiUrl = "api.dankbank.us/api/";
 usernameField = document.getElementById('username');
 pinField = document.getElementById('pin');
 error_text = document.getElementById('error_text');

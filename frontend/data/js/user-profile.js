@@ -1,4 +1,4 @@
-apiUrl = "http://localhost:6009/api/";
+apiUrl = "api.dankbank.us/api/";
 navTabs = document.getElementById('nav-tabs');
 profileName = document.getElementById('profile-name');
 profileUsername = document.getElementById('profile-username');

@@ -1,4 +1,4 @@
-apiUrl = "http://localhost:6009/api/";
+apiUrl = "api.dankbank.us/api/";
 accountContent = document.getElementById('account-content');
 accountTypes = document.getElementsByName('account-type');
 checkAccountSelector = document.getElementById('check-account-selector');

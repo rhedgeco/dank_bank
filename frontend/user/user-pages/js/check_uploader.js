@@ -1,4 +1,4 @@
-apiUrl = 'http://localhost:6009/api/';
+apiUrl = 'api.dankbank.us/api/';
 checkAmtCleave = new Cleave('.check-amount', {numeral: true});
 
 download_checks();
