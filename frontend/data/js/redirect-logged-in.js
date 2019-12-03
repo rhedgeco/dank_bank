@@ -1,7 +1,6 @@
-apiUrl = "dankbank.us/api/";
 auth = getCookie("authToken");
 let request = new XMLHttpRequest();
-request.open("GET", apiUrl + "user_profiles?authToken=" + auth);
+request.open("GET", "/api/user_profiles?authToken=" + auth);
 request.onload = function () {
     if (this.status === 200) {
         let user = JSON.parse(this.response)['username'];

@@ -1,4 +1,4 @@
-apiUrl = "dankbank.us/api/";
+
 usernameField = document.getElementById('username');
 pinField = document.getElementById('pin');
 error_text = document.getElementById('error_text');
@@ -8,7 +8,7 @@ function onLogin() {
     let pin = pinField.value;
 
     let xhttp = new XMLHttpRequest();
-    xhttp.open("GET", apiUrl + "auth?username=" + user + "&pin=" + pin, true);
+    xhttp.open("GET", "/api/auth?username=" + user + "&pin=" + pin, true);
     xhttp.onload = function () {
         error_text.innerText = "";
         if (this.status === 200) {

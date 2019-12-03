@@ -1,4 +1,4 @@
-apiUrl = 'dankbank.us/api/';
+
 checkAmtCleave = new Cleave('.check-amount', {numeral: true});
 
 download_checks();
@@ -15,7 +15,7 @@ function upload_check() {
     formData.append('authToken', getCookie('authToken'));
     formData.append('check_amount', checkAmt);
 
-    request.open('POST', apiUrl + 'checks');
+    request.open('POST', '/api/checks');
     request.onload = function () {
         if (this.status === 200) window.location.href = "user-profile.html";
         else M.toast({html: 'Failed to upload check.'});
@@ -26,7 +26,7 @@ function upload_check() {
 function download_checks() {
     // let request = new XMLHttpRequest();
     // request.responseType = 'blob';
-    // request.open('GET', apiUrl + 'checks?authToken=' + getCookie('authToken'));
+    // request.open('GET', '/api/checks?authToken=' + getCookie('authToken'));
     // request.onload = function () {
     //     if (this.status === 200) create_check(this.response);
     // };

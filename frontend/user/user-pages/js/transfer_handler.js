@@ -1,4 +1,4 @@
-apiUrl = 'dankbank.us/api/';
+
 transAmtCleave = new Cleave('.transfer-amount', {numeral: true});
 
 function execute_transfer() {
@@ -16,7 +16,7 @@ function execute_transfer() {
     formData.append('authToken', getCookie('authToken'));
     formData.append('amount', transAmt);
 
-    request.open('POST', apiUrl + 'transfers');
+    request.open('POST', '/api/transfers');
     request.onload = function () {
         if (this.status === 200) window.location.href = "user-profile.html";
         else M.toast({html: 'Failed to execute transfer.'});

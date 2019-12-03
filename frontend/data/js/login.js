@@ -1,11 +1,11 @@
-apiUrl = "dankbank.us/api/";
+
 usernameField = document.getElementById("username");
 passwordField = document.getElementById("password");
 error_text = document.getElementById("error_text");
 
 function loginProfile(username, password) {
     let xhttp = new XMLHttpRequest();
-    xhttp.open("GET", apiUrl + "auth?username=" + username + "&password=" + password, true);
+    xhttp.open("GET", "/api/auth?username=" + username + "&password=" + password, true);
     xhttp.onload = function () {
         error_text.innerText = "";
         if (this.status === 200) {

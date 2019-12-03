@@ -1,4 +1,4 @@
-apiUrl = "dankbank.us/api/";
+
 accountContent = document.getElementById('account-content');
 accountTypes = document.getElementsByName('account-type');
 checkAccountSelector = document.getElementById('check-account-selector');
@@ -11,7 +11,7 @@ load_transactions(0);
 
 function load_accounts() {
     let accountRequest = new XMLHttpRequest();
-    accountRequest.open("GET", apiUrl + 'accounts?authToken=' + getCookie('authToken'));
+    accountRequest.open("GET", '/api/accounts?authToken=' + getCookie('authToken'));
     accountRequest.onload = function () {
         if (this.status === 200) {
             accountContent.innerHTML = "";
@@ -43,7 +43,7 @@ function create_account() {
         }
     }
     let request = new XMLHttpRequest();
-    request.open('POST', apiUrl + 'accounts?authToken=' + getCookie('authToken') + '&type=' + accType);
+    request.open('POST', '/api/accounts?authToken=' + getCookie('authToken') + '&type=' + accType);
     request.onload = function () {
         if (this.status === 200) load_accounts();
         else M.toast({html: 'Failed to create account.'});
@@ -120,7 +120,7 @@ function load_transactions(transAcc) {
     else transId.innerText = "";
     transSection.innerHTML = '<div class="progress"><div class="indeterminate"></div></div>';
     let request = new XMLHttpRequest();
-    request.open('GET', apiUrl + 'transfers?authToken=' + getCookie('authToken') + '&account_id=' + transAcc);
+    request.open('GET', '/api/transfers?authToken=' + getCookie('authToken') + '&account_id=' + transAcc);
     request.onload = function () {
         if (this.status === 200) {
             transSection.innerHTML = '';

@@ -1,4 +1,4 @@
-apiUrl = "dankbank.us/api/";
+
 accountContent = document.getElementById('account-content');
 accountTypes = document.getElementsByName('account-type');
 withdrawAccountSelector = document.getElementById('withdraw-account-selector');
@@ -12,7 +12,7 @@ function onWithdraw() {
     let amount = document.getElementById('withdraw-amount').value;
 
     let wd = new XMLHttpRequest();
-    wd.open("POST", apiUrl + 'withdraw?authToken='+getCookie('authToken')+'&account_id='+id+'&amount='+amount);
+    wd.open("POST", '/api/withdraw?authToken='+getCookie('authToken')+'&account_id='+id+'&amount='+amount);
     wd.onload = function () {
         if(this.status === 200){
             window.location.href = "dank-atm.html";
@@ -25,7 +25,7 @@ function onWithdraw() {
 
 function load_accounts() {
     let accountRequest = new XMLHttpRequest();
-    accountRequest.open("GET", apiUrl + 'accounts?authToken=' + getCookie('authToken'));
+    accountRequest.open("GET", '/api/accounts?authToken=' + getCookie('authToken'));
     accountRequest.onload = function () {
         if (this.status === 200) {
             accountContent.innerHTML = "";

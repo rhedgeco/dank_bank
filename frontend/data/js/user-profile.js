@@ -1,4 +1,4 @@
-apiUrl = "dankbank.us/api/";
+
 navTabs = document.getElementById('nav-tabs');
 profileName = document.getElementById('profile-name');
 profileUsername = document.getElementById('profile-username');
@@ -9,7 +9,7 @@ profileAddress = document.getElementById('profile-address');
 function update_user() {
     let request = new XMLHttpRequest();
     let token = getCookie('authToken');
-    request.open('GET', apiUrl + 'user_profiles?authToken=' + token);
+    request.open('GET', '/api/user_profiles?authToken=' + token);
     request.onload = function () {
         if (this.status === 200) {
             let user = JSON.parse(this.response);

@@ -1,4 +1,4 @@
-apiUrl = "dankbank.us/api/";
+
 
 pass = document.getElementById("password");
 passConf = document.getElementById("passConf");
@@ -130,7 +130,7 @@ function check_pin_match() {
 
 function call_post_user(first_name, last_name, username, password, pin, email, phone, address) {
     let request = new XMLHttpRequest();
-    request.open("POST", apiUrl + 'user_profiles?' +
+    request.open("POST", '/api/user_profiles?' +
         'first_name=' + first_name +
         '&last_name=' + last_name +
         '&username=' + username +

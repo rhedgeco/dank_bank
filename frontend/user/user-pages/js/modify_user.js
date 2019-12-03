@@ -1,4 +1,4 @@
-apiUrl = "dankbank.us/api/";
+
 
 pass = document.getElementById("password");
 passConf = document.getElementById("passConf");
@@ -130,7 +130,7 @@ function check_pin_match() {
 
 function call_put_user(first_name, last_name, username, password, pin, email, phone, address) {
     let request = new XMLHttpRequest();
-    request.open('PUT', apiUrl + 'user_profiles');
+    request.open('PUT', '/api/user_profiles');
     request.onload = function () {
         if (this.status === 200) window.location.href = "user-profile.html";
         else M.toast({html: 'Failed to modify user'});
