@@ -35,18 +35,18 @@ api.add_route('/api/transfers', transfers)
 withdraw = Withdraw()
 api.add_route('/api/withdraw', withdraw)
 
-#
-# def create():
-#     return api
-#
-#
-# if __name__ == "__main__":
-#     print('only run this file directly for local hosting')
-#     server = simple_server.make_server(
-#         host="0.0.0.0",
-#         port=6009,
-#         app=create()
-#     )
-#
-#     print(f'Serving webserver at http://{server.server_address[0]}:{server.server_address[1]}')
-#     server.serve_forever()
+
+def create():
+    return api
+
+
+if __name__ == "__main__":
+    print('only run this file directly for local hosting')
+    server = simple_server.make_server(
+        host="0.0.0.0",
+        port=6009,
+        app=create()
+    )
+
+    print(f'Serving webserver at http://{server.server_address[0]}:{server.server_address[1]}')
+    server.serve_forever()

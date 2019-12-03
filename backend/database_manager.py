@@ -1,4 +1,4 @@
-# import sqlite3
+import sqlite3
 import os
 # TODO: import hashlib
 
@@ -21,27 +21,26 @@ def dict_factory(cursor, row):
     return d
 
 
-# while True:
-#     try:
-#         # dank bank database
-#         print('attempting to connect to database at relative path ' + str(database_path))
-#         con = sqlite3.connect(str(database_path))
-#         con.row_factory = dict_factory
-#         print('Connected to sqlite database.')
-#         break
-#     except sqlite3.OperationalError:
-#         print("hmm... we couldn't connect to the database. that sucks.\n"
-#               "checking path " + str(database_path))
-#         sleep(1)
+while True:
+    try:
+        # dank bank database
+        print('attempting to connect to database at relative path ' + str(database_path))
+        con = sqlite3.connect(str(database_path))
+        con.row_factory = dict_factory
+        print('Connected to sqlite database.')
+        break
+    except sqlite3.OperationalError:
+        print("hmm... we couldn't connect to the database. that sucks.\n"
+              "checking path " + str(database_path))
+        sleep(1)
 
 
 # Executes a MySQL query
 def run_query(query):
-    # with con:
-    #     cur = con.cursor()
-    #     cur.execute(query)
-    #     return cur
-    print(query)
+    with con:
+        cur = con.cursor()
+        cur.execute(query)
+        return cur
 
 
 def check_user_exists(username: str):
@@ -172,10 +171,10 @@ def withdraw_money(account_id: id, amount: float):
 
 
 # Set up and connect to database
-# with open("backend/sqlite_setup.sql") as file:
-#     print('checking database for proper tables...')
-#     for query in file.read().split(";"):
-#         try:
-#             run_query(query)
-#         except sqlite3.OperationalError:
-#             pass
+with open("backend/sqlite_setup.sql") as file:
+    print('checking database for proper tables...')
+    for query in file.read().split(";"):
+        try:
+            run_query(query)
+        except sqlite3.OperationalError:
+            pass
