@@ -103,7 +103,7 @@ function getCookie(cname) {
             return c.substring(name.length, c.length);
         }
     }
-    return "";
+    return 0;
 }
 
 // https://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-currency-string-in-javascript
