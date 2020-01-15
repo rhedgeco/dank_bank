@@ -13,6 +13,11 @@ from falcon_multipart.middleware import MultipartMiddleware
 from backend.paths import STATIC_DIR
 
 from wsgiref import simple_server
+from socketserver import ThreadingMixIn
+
+class ThreadedWSGIServer(ThreadingMixIn, simple_server.WSGIServer):
+    """A WSGI server that has threading enabled."""
+    pass
 
 public_cors = falcon_cors.CORS(allow_all_origins=True,
                                allow_all_headers=True,
@@ -48,7 +53,8 @@ if __name__ == "__main__":
     server = simple_server.make_server(
         host="0.0.0.0",
         port=80,
-        app=api
+        app=api,
+        server_class=ThreadedWSGIServer
     )
 
     print(f'Serving webserver at http://{server.server_address[0]}:{server.server_address[1]}')
